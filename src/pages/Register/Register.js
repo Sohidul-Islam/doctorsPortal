@@ -2,10 +2,12 @@ import React, { useState } from 'react';
 import { Box, CardMedia, Container, Grid, TextField, Paper, Typography, Button } from '@mui/material';
 import loginImage from '../../images/login.png';
 import { Link } from 'react-router-dom';
+import useFirebase from '../../Hooks/useFirebase';
 // import './Login.css';
 
 const Register = () => {
     const [registerData, setRegisterData] = useState({});
+    const { user, signUpWithEmailPassword } = useFirebase();
     const handleOnChange = (e) => {
         const field = e.target.name
         const value = e.target.value
@@ -17,6 +19,7 @@ const Register = () => {
     }
     const handleSubmit = (e) => {
         e.preventDefault();
+        signUpWithEmailPassword(registerData.email, registerData.password);
     }
     return (
         <Container>
