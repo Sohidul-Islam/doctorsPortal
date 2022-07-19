@@ -1,18 +1,18 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Box, CardMedia, Container, Grid, TextField, Paper, Typography, Button } from '@mui/material';
 import loginImage from '../../images/login.png';
 import { Link } from 'react-router-dom';
-import './Login.css';
-import { useState } from 'react';
-//style texfield
-const Login = () => {
-    const [loginData, setLoginData] = useState({});
+// import './Login.css';
+
+const Register = () => {
+    const [registerData, setRegisterData] = useState({});
     const handleOnChange = (e) => {
         const field = e.target.name
         const value = e.target.value
-        const newLoginData = { ...loginData }
+        const newLoginData = { ...registerData }
         newLoginData[field] = value
-        setLoginData(newLoginData, console.log("login data", loginData))
+        console.log("login data", newLoginData)
+        setRegisterData(newLoginData)
         // console.log(field);
     }
     const handleSubmit = (e) => {
@@ -28,7 +28,7 @@ const Login = () => {
                                 <Box sx={{ p: 3 }}>
                                     <Typography variant="h3"
                                         sx={{ mb: 3, textAlign: "center" }}>
-                                        Login
+                                        Register
                                     </Typography>
                                     <TextField onChange={handleOnChange}
                                         name="email"
@@ -45,12 +45,20 @@ const Login = () => {
                                         className='inputField'
                                         type="password"
                                     />
+                                    <TextField onChange={handleOnChange} name="password2" sx={{ my: 1 }}
+                                        id="filled-basic"
+                                        label="confirm password"
+                                        variant="standard"
+                                        fullWidth
+                                        className='inputField'
+                                        type="password"
+                                    />
 
                                     <Link to="/"><Button variant='text'>
                                         Forgot your password</Button></Link>
                                     <br />
-                                    <Button onClick={handleSubmit} fullWidth sx={{ my: 2 }} type="submit" variant="contained">LOGIN</Button>
-                                    <Link to="/register"><Button variant='text'>New User? please register</Button></Link>
+                                    <Button onClick={handleSubmit} fullWidth sx={{ my: 2 }} type="submit" variant="contained">Register</Button>
+                                    <Link to="/login"><Button variant='text'>Already Register? Please Login</Button></Link>
                                     <br />
                                 </Box>
                             </Paper>
@@ -71,4 +79,4 @@ const Login = () => {
     );
 };
 
-export default Login;
+export default Register;

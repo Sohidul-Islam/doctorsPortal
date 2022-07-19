@@ -31,7 +31,7 @@ const Navigation = () => {
                     <Link underline="none" className="nav-item" to="/login">
                         <Button color="inherit">Login</Button>
                     </Link>
-                    <Link underline="none" className="nav-item" to="/login">
+                    <Link underline="none" className="nav-item" to="/register">
                         <Button color="inherit">Register</Button>
                     </Link>
                 </Toolbar>
