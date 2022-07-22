@@ -8,7 +8,8 @@ import { useState } from 'react';
 import useFirebase from '../../Hooks/useFirebase';
 import useAuth from '../../Hooks/useAuth';
 //style texfield
-const Login = () => {
+const Login = (props) => {
+    console.log("props", props);
     const [loginData, setLoginData] = useState({});
     const [open, setOpen] = useState(false);
     const [snackbarOpen, setSnackbarOpen] = useState(false);
