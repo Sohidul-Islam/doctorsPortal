@@ -7,7 +7,7 @@ import AppointmentCard from './../AppointmentCard/AppointmentCard';
 import { Container } from '@mui/system';
 
 const AvailableAppointment = ({ date, setDate }) => {
-    // console.log("date: ", date);
+
     const appointmentData = [
         {
             id: 1,
@@ -52,11 +52,11 @@ const AvailableAppointment = ({ date, setDate }) => {
 
         <Container sx={{ my: 5 }}>
             <Typography variant="h3" sx={{ color: 'info.main', fontSize: 22 }} align="center">
-                Available Appointment on {date.toLocaleDateString()}
+                Available Appointment on {date.toDateString()}
             </Typography>
             <Box sx={{ my: 3, flexGrow: 1 }}>
                 <Grid container spacing={{ xs: 2, md: 3 }} columns={{ xs: 4, sm: 8, md: 12 }}>
-                    {appointmentData.map(appointment => <Grid key={appointment.id} item xs={4} sm={4} md={4} ><AppointmentCard appointment={appointment} date={date.toLocaleDateString()} /></Grid>)}
+                    {appointmentData.map(appointment => <Grid key={appointment.id} item xs={4} sm={4} md={4} ><AppointmentCard appointment={appointment} date={date} /></Grid>)}
                 </Grid>
             </Box>
         </Container>

@@ -9,16 +9,16 @@ import useFirebase from '../../Hooks/useFirebase';
 import useAuth from '../../Hooks/useAuth';
 //style texfield
 const Login = (props) => {
-    console.log("props", props);
+
     const [loginData, setLoginData] = useState({});
     const [open, setOpen] = useState(false);
     const [snackbarOpen, setSnackbarOpen] = useState(false);
     const { user, isLoader, error, setError, loginWithEmailPassword, signInWithGoogle } = useAuth();
     const location = useLocation();
+    console.log("location", location);
     const navigate = useNavigate();
     useEffect(() => {
         if (error !== "") {
-
             setOpen(true);
         }
         else {
@@ -28,13 +28,22 @@ const Login = (props) => {
 
         }
     }, [error]);
+
+    useEffect(() => {
+
+        if (user.email && location.state?.from) {
+            navigate(`${location.state?.from}`, {
+                state: { from: location.pathname }
+            })
+        }
+    }, [user])
     const handleOnChange = (e) => {
         const field = e.target.name
         const value = e.target.value
         const newLoginData = { ...loginData }
         newLoginData[field] = value
         setLoginData(newLoginData)
-        // console.log(field);
+
     }
     const handleSubmit = async (e) => {
         await loginWithEmailPassword(loginData.email, loginData.password, navigate, location);
@@ -86,7 +95,7 @@ const Login = (props) => {
                                                 />
 
                                                 <TextField onChange={handleOnChange} name="password" sx={{ my: 1 }}
-                                                    id="filled-basic"
+                                                    id="filled-basic2"
                                                     label="password"
                                                     variant="standard"
                                                     fullWidth
@@ -101,7 +110,7 @@ const Login = (props) => {
 
                                                 <Link to="/register"><Button variant='text'>New User? please register</Button></Link>
                                                 <br />
-                                                <Typography align="center">----------------------------------------------------------------</Typography>
+                                                <Typography align="center">- - - - - - - -- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -</Typography>
                                                 <br />
                                                 <Button onClick={() => {
                                                     signInWithGoogle(navigate, location)

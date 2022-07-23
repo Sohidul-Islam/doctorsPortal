@@ -4,11 +4,22 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import useAuth from '../../Hooks/useAuth';
 
 const PrivateRouter = ({ children, ...rest }) => {
-    const { user, isLoader } = useAuth();
+    const { user } = useAuth();
     const navigate = useNavigate();
     const location = useLocation();
-    console.log("is loader ", isLoader);
-    return isLoader ? <CircularProgress style={{ margin: "25% 50%", overflowX: "hidden" }} /> : user?.email ? children : navigate('/login', { replace: true }, { state: { from: location.pathname } });
+    useEffect(() => {
+        if (!user?.email) {
+            console.log("ami navigate korechi : login page");
+            navigate("/login", {
+                state: { from: location.pathname }
+            })
+        }
+    }, [])
+
+    if (user?.email) {
+        console.log("ami childrenke return korechi", children);
+        return children;
+    }
 };
 
 export default PrivateRouter;

@@ -12,8 +12,6 @@ const auth = getAuth();
 const googleProvider = new GoogleAuthProvider();
 
 const useFirebase = () => {
-
-
     // use user state to
     const [user, setUser] = useState({});
     const [error, setError] = useState('');
@@ -24,9 +22,12 @@ const useFirebase = () => {
         }).then(() => {
             // Profile updated!
             // ...
+            setError("")
         }).catch((error) => {
-            // An error occurred
-            // ...
+            const errorCode = error.code;
+            let errorMessage = error.message;
+            errorMessage = errorMessage.slice(9, errorMessage.length - 1)
+            setError(errorMessage)
         });
     }
     const signUpWithEmailPassword = (email, password, name, Navigate) => {
@@ -34,13 +35,15 @@ const useFirebase = () => {
         createUserWithEmailAndPassword(auth, email, password)
             .then((userCredential) => {
                 // Signed in 
-                updateProfile({ name: name });
+                updateUser({ name: name });
 
                 Navigate('/');
                 const user = userCredential.user;
-                const newUser = { displayName: user.displayName, ...user }
+                const newUser = user;
+                newUser.displayName = name;
                 setUser(newUser);
                 setError("")
+                savedUser(email, name, "POST");
 
             })
             .catch((error) => {
@@ -63,6 +66,7 @@ const useFirebase = () => {
                 navigate(destination);
                 setUser(user);
                 setError('');
+
             })
             .catch((error) => {
                 const errorCode = error.code;
@@ -86,12 +90,14 @@ const useFirebase = () => {
                 const destination = location?.state?.from || '/';
                 navigate(destination);
                 setUser(user);
-                // ...
+                savedUser(user.email, user.displayName, "PUT");
+                setError('');
+
             }).catch((error) => {
                 // Handle Errors here.
                 const errorCode = error.code;
                 const errorMessage = error.message;
-                // The email of the user's account used.
+                setError(errorMessage)
                 const email = error.customData.email;
                 // The AuthCredential type that was used.
                 const credential = GoogleAuthProvider.credentialFromError(error);
@@ -105,6 +111,20 @@ const useFirebase = () => {
         }).catch((error) => {
             setError(error.message)
         });
+    }
+
+    const savedUser = async (email, name, crud) => {
+        const result = await fetch('http://localhost:5000/users', {
+            method: crud,
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ email, name })
+
+        })
+
+        console.log("Data saved Successfully", result);
+
     }
     useEffect(() => {
         onAuthStateChanged(auth, (user) => {

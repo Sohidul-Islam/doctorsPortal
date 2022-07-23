@@ -19,9 +19,9 @@ const Register = () => {
         const value = e.target.value
         const newLoginData = { ...registerData }
         newLoginData[field] = value
-        console.log("login data", newLoginData)
+
         setRegisterData(newLoginData)
-        // console.log(field);
+
     }
 
     const handleSubmit = (e) => {
@@ -79,19 +79,19 @@ const Register = () => {
                                         </Typography>
                                         <TextField onBlur={handleOnBlur}
                                             name="name"
-                                            sx={{ my: 1 }} id="filled-basic" label="your name" variant="standard" fullWidth
+                                            sx={{ my: 1 }} id="filled-basic_1" label="your name" variant="standard" fullWidth
                                             className='inputField'
                                             type="text"
                                         />
                                         <TextField onBlur={handleOnBlur}
                                             name="email"
-                                            sx={{ my: 1 }} id="filled-basic" label="email" variant="standard" fullWidth
+                                            sx={{ my: 1 }} id="filled-basic_2" label="email" variant="standard" fullWidth
                                             className='inputField'
                                             type="email"
                                         />
 
                                         <TextField onBlur={handleOnBlur} name="password" sx={{ my: 1 }}
-                                            id="filled-basic"
+                                            id="filled-basic_3"
                                             label="password"
                                             variant="standard"
                                             fullWidth
@@ -129,15 +129,17 @@ const Register = () => {
                     </Box>
                 </Box>
             </Container> :
-                <CircularProgress style={{ margin: "25% 50%", overflowX: "hidden" }} />}
-            <Snackbar
-                anchorOrigin={{ vertical: "top", horizontal: "center" }}
-                open={snackbarOpen}
-                onClose={handleSnackBarClose}
-                message="Successfully Registered!"
-                key={"top" + "center"}
-            />
+                <Box>
+                    <CircularProgress style={{ margin: "25% 50%", overflowX: "hidden" }} />
+                    <Snackbar
+                        anchorOrigin={{ vertical: "top", horizontal: "center" }}
+                        open={snackbarOpen}
+                        onClose={handleSnackBarClose}
+                        message="Successfully Registered!"
+                        key={"top" + "center"}
+                    />
 
+                </Box>}
         </>
     );
 };
