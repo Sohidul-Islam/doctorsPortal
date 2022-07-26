@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import InitializeFirebase from '../pages/Login/Firebase/Firebase.init';
 // firebase libraries
-import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, onAuthStateChanged, signInWithPopup, GoogleAuthProvider, updateProfile } from "firebase/auth";
+import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, onAuthStateChanged, signInWithPopup, GoogleAuthProvider, getIdToken, updateProfile } from "firebase/auth";
 //initialize firebase app.
 
 InitializeFirebase();
@@ -14,6 +14,8 @@ const googleProvider = new GoogleAuthProvider();
 const useFirebase = () => {
     // use user state to
     const [user, setUser] = useState({});
+    const [token, setToken] = useState('');
+    const [admin, setAdmin] = useState(false);
     const [error, setError] = useState('');
     const [isLoader, setIsLoader] = useState(false);
     const updateUser = (profile) => {
@@ -130,20 +132,33 @@ const useFirebase = () => {
         onAuthStateChanged(auth, (user) => {
             if (user) {
                 setUser(user);
+                getIdToken(user).then((idToken) => setToken(idToken));
             } else {
                 setUser({});
             }
         });
     }, []);
+
+    useEffect(() => {
+        const url = `http://localhost:5000/users/admin?email=${user?.email}`;
+        console.log("url for admin: ", url);
+        fetch(url).then(res => res.json())
+            .then(data => {
+                console.log(data);
+                setAdmin(data.admin);
+            })
+    }, [user.email]);
     return {
         user,
+        token,
         signUpWithEmailPassword,
         loginWithEmailPassword,
         signInWithGoogle,
         logout,
         isLoader,
         error,
-        setError
+        setError,
+        admin
     }
 
 };

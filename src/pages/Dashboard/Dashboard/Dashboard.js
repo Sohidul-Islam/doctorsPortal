@@ -1,4 +1,4 @@
-import * as React from 'react';
+
 import PropTypes from 'prop-types';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
@@ -16,23 +16,18 @@ import MailIcon from '@mui/icons-material/Mail';
 import MenuIcon from '@mui/icons-material/Menu';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
-import { Button, Grid } from '@mui/material';
-import Calender from '../../Share/Calender/Calender';
-import { Link } from 'react-router-dom';
+import { Link, Outlet, useLocation } from 'react-router-dom';
 import useAuth from '../../../Hooks/useAuth';
-import Appointment from '../Appointment/Appointment';
+import { Button } from '@mui/material';
+import { useEffect, useState } from 'react';
 
 const drawerWidth = 240;
 
 const Dashboard = (props) => {
-    console.log("props dashboard", props);
     const { window } = props;
-    const { user } = useAuth();
-
-    console.log("user dashboard", user);
-    const [mobileOpen, setMobileOpen] = React.useState(false);
-    const [date, setDate] = React.useState(new Date());
-
+    const { user, admin } = useAuth();
+    const [mobileOpen, setMobileOpen] = useState(false);
+    console.log("Dashboard", user, admin);
     const handleDrawerToggle = () => {
         setMobileOpen(!mobileOpen);
     };
@@ -42,7 +37,14 @@ const Dashboard = (props) => {
             <Toolbar />
             {/* <Typography variant="h4" component="h4">{user.displayName}</Typography> */}
             <Divider />
-            <Link to="/appointment">Appointment</Link>
+            <Link to="/appointment"><Button align="center" fullWidth variant='text' >Appointment</Button></Link>
+
+            <Link to={`/dashboard`}><Button align="center" fullWidth variant='text' >Dashboard</Button></Link>
+
+            {admin && <Box>
+                <Link to={`/dashboard/makeadmin`}><Button align="center" fullWidth variant='text' >Make Admin</Button></Link>
+                <Link to={`/dashboard/adddoctor`}><Button align="center" fullWidth variant='text' >Make Doctor</Button></Link>
+            </Box>}
             <List>
                 {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
                     <ListItem key={text} disablePadding>
@@ -125,20 +127,8 @@ const Dashboard = (props) => {
                 sx={{ flexGrow: 1, p: 3, width: { sm: `calc(100% - ${drawerWidth}px)` } }}
             >
                 <Toolbar />
-                <Typography variant="h4" component="h4">
-                    <Grid container spacing={1} columns={{ xs: 4, sm: 8, md: 12 }}>
-                        <Grid item xs={4} sm={8} md={4}>
-                            <Calender
-                                date={date}
-                                setDate={setDate}
-                            />
-                        </Grid>
-                        <Grid item xs={4} sm={8} md={8}>
-                            <Appointment date={date} />
-                        </Grid>
+                <Outlet />
 
-                    </Grid>
-                </Typography>
             </Box>
         </Box>
     );

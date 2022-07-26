@@ -13,6 +13,10 @@ import AuthProvider from './Context/AuthProvider';
 import PrivateRouter from './pages/PrivateRouter/PrivateRouter';
 import Dashboard from './pages/Dashboard/Dashboard/Dashboard';
 import Navigation from './pages/Share/Navigation/Navigation';
+import MakeAdmin from './pages/Dashboard/MakeAdmin/MakeAdmin';
+import AddDoctor from './pages/Dashboard/AddDoctor/AddDoctor';
+import DashboardHome from './pages/Dashboard/DashboardHome/DashboardHome';
+import AdminRouter from './pages/Dashboard/AdminRoute/AdminRouter';
 
 function App() {
 
@@ -24,7 +28,10 @@ function App() {
           </Route>
           <Route path="/appointment" element={<PrivateRouter><Appointment /></PrivateRouter>}>
           </Route>
-          <Route path="/dashboard" element={<PrivateRouter><Dashboard /></PrivateRouter>}>
+          <Route path="dashboard" element={<PrivateRouter><Dashboard /></PrivateRouter>}>
+            <Route path={``} element={<DashboardHome />}></Route>
+            <Route path={`makeadmin`} element={<AdminRouter><MakeAdmin /></AdminRouter>}></Route>
+            <Route path={`adddoctor`} element={<AdminRouter><AddDoctor /></AdminRouter>}></Route>
           </Route>
           <Route path="/login" element={<Login />}>
           </Route>
