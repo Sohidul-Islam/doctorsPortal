@@ -1,6 +1,5 @@
 import React from 'react';
 import { Typography } from '@mui/material';
-import { experimentalStyled as styled } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import AppointmentCard from './../AppointmentCard/AppointmentCard';

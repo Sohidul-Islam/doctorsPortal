@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import InitializeFirebase from '../pages/Login/Firebase/Firebase.init';
 // firebase libraries
 import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, onAuthStateChanged, signInWithPopup, GoogleAuthProvider, getIdToken, updateProfile } from "firebase/auth";
@@ -26,7 +26,6 @@ const useFirebase = () => {
             // ...
             setError("")
         }).catch((error) => {
-            const errorCode = error.code;
             let errorMessage = error.message;
             errorMessage = errorMessage.slice(9, errorMessage.length - 1)
             setError(errorMessage)
@@ -49,7 +48,6 @@ const useFirebase = () => {
 
             })
             .catch((error) => {
-                const errorCode = error.code;
                 let errorMessage = error.message;
                 errorMessage = errorMessage.slice(9, errorMessage.length - 1)
                 setError(errorMessage)
@@ -71,7 +69,6 @@ const useFirebase = () => {
 
             })
             .catch((error) => {
-                const errorCode = error.code;
                 let errorMessage = error.message;
                 errorMessage = errorMessage.slice(9, errorMessage.length - 1)
                 setError(errorMessage)
@@ -86,7 +83,6 @@ const useFirebase = () => {
             .then((result) => {
                 // This gives you a Google Access Token. You can use it to access the Google API.
                 const credential = GoogleAuthProvider.credentialFromResult(result);
-                const token = credential.accessToken;
                 // The signed-in user info.
                 const user = result.user;
                 const destination = location?.state?.from || '/';
@@ -97,12 +93,9 @@ const useFirebase = () => {
 
             }).catch((error) => {
                 // Handle Errors here.
-                const errorCode = error.code;
                 const errorMessage = error.message;
                 setError(errorMessage)
-                const email = error.customData.email;
                 // The AuthCredential type that was used.
-                const credential = GoogleAuthProvider.credentialFromError(error);
                 // ...
             })
             .finally(() => setIsLoader(false));
@@ -116,7 +109,7 @@ const useFirebase = () => {
     }
 
     const savedUser = async (email, name, crud) => {
-        const result = await fetch('http://localhost:5000/users', {
+        const result = await fetch('https://glacial-ridge-14430.herokuapp.com/users', {
             method: crud,
             headers: {
                 'Content-Type': 'application/json'
@@ -125,7 +118,7 @@ const useFirebase = () => {
 
         })
 
-        console.log("Data saved Successfully", result);
+
 
     }
     useEffect(() => {
@@ -140,11 +133,11 @@ const useFirebase = () => {
     }, []);
 
     useEffect(() => {
-        const url = `http://localhost:5000/users/admin?email=${user?.email}`;
-        console.log("url for admin: ", url);
+        const url = `https://glacial-ridge-14430.herokuapp.com/users/admin?email=${user?.email}`;
+
         fetch(url).then(res => res.json())
             .then(data => {
-                console.log(data);
+
                 setAdmin(data.admin);
             })
     }, [user.email]);

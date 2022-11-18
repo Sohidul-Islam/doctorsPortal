@@ -18,7 +18,7 @@ const Appointment = ({ date }) => {
 
     useEffect(() => {
         setIsDataLoaded(false);
-        const url = `http://localhost:5000/appointments?email=${user.email}&date=${date.toLocaleDateString()}`;
+        const url = `https://glacial-ridge-14430.herokuapp.com/appointments?email=${user.email}&date=${date.toLocaleDateString()}`;
         console.log("url", url);
         fetch(url)
             .then(res => res.json())

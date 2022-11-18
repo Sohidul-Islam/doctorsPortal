@@ -1,5 +1,4 @@
-import { CircularProgress } from '@mui/material';
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import useAuth from '../../../Hooks/useAuth';
 
@@ -11,7 +10,7 @@ const AdminRouter = ({ children, ...rest }) => {
     const location = useLocation();
 
     useEffect(() => {
-        console.log("ami admin routere achi use effect", user.email, admin, isLoader);
+
         if (user?.email && admin === false) {
             navigate("/", {
                 state: { from: location.pathname }

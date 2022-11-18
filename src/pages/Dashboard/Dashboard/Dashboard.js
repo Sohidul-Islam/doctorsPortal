@@ -16,18 +16,16 @@ import MailIcon from '@mui/icons-material/Mail';
 import MenuIcon from '@mui/icons-material/Menu';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
-import { Link, Outlet, useLocation } from 'react-router-dom';
+import { Link, Outlet } from 'react-router-dom';
 import useAuth from '../../../Hooks/useAuth';
 import { Button } from '@mui/material';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 
 const drawerWidth = 240;
-
 const Dashboard = (props) => {
     const { window } = props;
     const { user, admin } = useAuth();
     const [mobileOpen, setMobileOpen] = useState(false);
-    console.log("Dashboard", user, admin);
     const handleDrawerToggle = () => {
         setMobileOpen(!mobileOpen);
     };
@@ -35,12 +33,9 @@ const Dashboard = (props) => {
     const drawer = (
         <div>
             <Toolbar />
-            {/* <Typography variant="h4" component="h4">{user.displayName}</Typography> */}
             <Divider />
             <Link to="/appointment"><Button align="center" fullWidth variant='text' >Appointment</Button></Link>
-
             <Link to={`/dashboard`}><Button align="center" fullWidth variant='text' >Dashboard</Button></Link>
-
             {admin && <Box>
                 <Link to={`/dashboard/makeadmin`}><Button align="center" fullWidth variant='text' >Make Admin</Button></Link>
                 <Link to={`/dashboard/adddoctor`}><Button align="center" fullWidth variant='text' >Make Doctor</Button></Link>
@@ -57,13 +52,10 @@ const Dashboard = (props) => {
                     </ListItem>
                 ))}
             </List>
-
-
         </div>
     );
 
     const container = window !== undefined ? () => window().document.body : undefined;
-
     return (
         <Box sx={{ display: 'flex' }}>
             <CssBaseline />
@@ -86,7 +78,6 @@ const Dashboard = (props) => {
                     </IconButton>
                     <Typography variant="h6" noWrap component="div">
                         Dashboard
-
                     </Typography>
                 </Toolbar>
             </AppBar>
@@ -135,10 +126,6 @@ const Dashboard = (props) => {
 }
 
 Dashboard.propTypes = {
-    /**
-     * Injected by the documentation to work in an iframe.
-     * You won't need it on your project.
-     */
     window: PropTypes.func,
 };
 

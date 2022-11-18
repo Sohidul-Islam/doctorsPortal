@@ -1,21 +1,20 @@
 import React, { useEffect } from 'react';
-import { Box, CardMedia, Container, Grid, TextField, Paper, Typography, Button, Collapse, Alert, IconButton, Snackbar, CircularProgress } from '@mui/material';
+import { Box, CardMedia, Container, Grid, TextField, Paper, Typography, Button, Collapse, Alert, IconButton, Snackbar } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close'
 import loginImage from '../../images/login.png';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import './Login.css';
 import { useState } from 'react';
-import useFirebase from '../../Hooks/useFirebase';
 import useAuth from '../../Hooks/useAuth';
 //style texfield
-const Login = (props) => {
+const Login = () => {
 
     const [loginData, setLoginData] = useState({});
     const [open, setOpen] = useState(false);
     const [snackbarOpen, setSnackbarOpen] = useState(false);
-    const { user, isLoader, error, setError, loginWithEmailPassword, signInWithGoogle } = useAuth();
+    const { user, isLoader, error, loginWithEmailPassword, signInWithGoogle } = useAuth();
     const location = useLocation();
-    console.log("location", location);
+
     const navigate = useNavigate();
     useEffect(() => {
         if (error !== "") {
@@ -30,20 +29,19 @@ const Login = (props) => {
     }, [error]);
 
     useEffect(() => {
-
         if (user.email && location.state?.from) {
             navigate(`${location.state?.from}`, {
                 state: { from: location.pathname }
             })
         }
     }, [user])
+
     const handleOnChange = (e) => {
         const field = e.target.name
         const value = e.target.value
         const newLoginData = { ...loginData }
         newLoginData[field] = value
         setLoginData(newLoginData)
-
     }
     const handleSubmit = async (e) => {
         await loginWithEmailPassword(loginData.email, loginData.password, navigate, location);
@@ -54,7 +52,6 @@ const Login = (props) => {
     };
     return (
         <>
-
             <Container>
                 <Box sx={{ my: 8 }}>
                     <Box sx={{ flexGrow: 1 }} >
@@ -148,7 +145,6 @@ const Login = (props) => {
                             onClick={() => {
                                 setSnackbarOpen(false);
                             }}
-
                         >
                             <CloseIcon fontSize="inherit" />
                         </IconButton>

@@ -41,7 +41,7 @@ const BookingModal = ({ date, appointment, openBooking, handleCloseBooking }) =>
             date: date.toLocaleDateString(),
         }
 
-        fetch("http://localhost:5000/appointments", {
+        fetch("https://glacial-ridge-14430.herokuapp.com/appointments", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"

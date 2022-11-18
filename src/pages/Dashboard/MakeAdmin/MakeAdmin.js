@@ -11,11 +11,11 @@ const MakeAdmin = () => {
     const [newAdminMessage, SetNewAdminMessage] = useState("");
     const onBlurHandler = (e) => {
         setEmail(e.target.value);
-        // console.log(e.target.value);
+
     }
     const onclickHandler = (e) => {
-        console.log("ami onclickHandler", email);
-        const url = "http://localhost:5000/users/admin";
+
+        const url = "https://glacial-ridge-14430.herokuapp.com/users/admin";
         fetch(url, {
             method: 'PUT',
             headers: {
@@ -25,8 +25,7 @@ const MakeAdmin = () => {
             body: JSON.stringify({ email: email })
         }).then(res => res.json())
             .then(data => {
-                console.log("make admin status: ", data.status);
-                console.log("modifiedCount ", data.modifiedCount);
+
                 if (data.modifiedCount > 0) {
                     setSuccess(true);
                     SetNewAdminMessage(`Make a new admin successfully by ${email}`);

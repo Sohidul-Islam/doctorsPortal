@@ -12,7 +12,6 @@ import Register from './pages/Register/Register';
 import AuthProvider from './Context/AuthProvider';
 import PrivateRouter from './pages/PrivateRouter/PrivateRouter';
 import Dashboard from './pages/Dashboard/Dashboard/Dashboard';
-import Navigation from './pages/Share/Navigation/Navigation';
 import MakeAdmin from './pages/Dashboard/MakeAdmin/MakeAdmin';
 import AddDoctor from './pages/Dashboard/AddDoctor/AddDoctor';
 import DashboardHome from './pages/Dashboard/DashboardHome/DashboardHome';

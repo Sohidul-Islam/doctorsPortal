@@ -1,15 +1,14 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { Box, CardMedia, Container, Grid, TextField, Paper, Typography, Button, Collapse, Alert, IconButton, Snackbar, CircularProgress } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close'
 import loginImage from '../../images/login.png';
 import { Link, useNavigate } from 'react-router-dom';
-import useFirebase from '../../Hooks/useFirebase';
 import useAuth from '../../Hooks/useAuth';
 // import './Login.css';
 
 const Register = () => {
     const [registerData, setRegisterData] = useState({});
-    const { user, isLoader, error, setError, signUpWithEmailPassword } = useAuth();
+    const { isLoader, error, setError, signUpWithEmailPassword } = useAuth();
     const [alertOpen, setAlertOpen] = useState(false);
 
     const [snackbarOpen, setSnackbarOpen] = useState(false);
